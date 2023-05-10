@@ -71,12 +71,21 @@ get_info() {
   echo -e "System Load: $(uptime)" >> "$temp_file"
   echo -e "Memory Usage: $(free -m)" >> "$temp_file"
 
-  echo -e "\n====== MegaCLI info" >> "$temp_file"
+  
   if [ -e "/usr/sbin/megacli" ]; then
+    echo -e "\n====== MegaCLI info" >> "$temp_file"
     megacli=`/usr/sbin/megacli -CfgDsply -aALL -nolog |grep '^State'`
     echo "$megacli" >> "$temp_file"
   else
-    echo "No information provided" >> "$temp_file"
+    echo "No MegaCLI information provided" >> "$temp_file"
+  fi
+
+  if [ -e "/proc/mdstat" ]; then
+    echo -e "\n====== /proc/mdstat " >> "$temp_file"
+    mdstat=`cat /proc/mdstat`
+    echo "$mdstat" >> "$temp_file"
+  else
+    echo "No /proc/mdstat information provided" >> "$temp_file"
   fi
 
   echo -e "\n====== System services" >> "$temp_file"
