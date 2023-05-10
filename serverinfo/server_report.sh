@@ -97,8 +97,14 @@ get_info() {
   echo -e "\n====== Disk free space" >> "$temp_file"
   df -h >> "$temp_file"
 
-  echo -e "\n====== Bconsole log: " >> "$temp_file"
-  echo -e "\nlist jobs" | bconsole | tail -n20 >> "$temp_file"
+
+  if [ -e "/usr/sbin/bconsole" ]; then
+    echo -e "\n====== Bconsole log: " >> "$temp_file"
+    echo -e "\nlist jobs" | bconsole | tail -n20 >> "$temp_file"
+  else
+    echo "No bconsole information provided" >> "$temp_file"
+  fi
+
 }
 
 send_email() {
