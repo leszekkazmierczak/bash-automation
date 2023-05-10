@@ -77,7 +77,7 @@ get_info() {
     megacli=`/usr/sbin/megacli -CfgDsply -aALL -nolog |grep '^State'`
     echo "$megacli" >> "$temp_file"
   else
-    echo "No MegaCLI information provided" >> "$temp_file"
+    echo "\nNo MegaCLI information provided" >> "$temp_file"
   fi
 
   if [ -e "/proc/mdstat" ]; then
@@ -85,7 +85,7 @@ get_info() {
     mdstat=`cat /proc/mdstat`
     echo "$mdstat" >> "$temp_file"
   else
-    echo "No /proc/mdstat information provided" >> "$temp_file"
+    echo "\nNo /proc/mdstat information provided" >> "$temp_file"
   fi
 
   echo -e "\n====== System services" >> "$temp_file"
@@ -98,11 +98,18 @@ get_info() {
   df -h >> "$temp_file"
 
 
+  if [ -e "/usr/sbin/pvesm" ]; then
+    echo -e "\n====== pvesm statu: " >> "$temp_file"
+    /usr/sbin/pvesm status >> "$temp_file"
+  else
+    echo "\nNo pvesm status provided" >> "$temp_file"
+  fi
+
   if [ -e "/usr/sbin/bconsole" ]; then
     echo -e "\n====== Bconsole log: " >> "$temp_file"
     echo -e "\nlist jobs" | bconsole | tail -n40 >> "$temp_file"
   else
-    echo "No bconsole information provided" >> "$temp_file"
+    echo "\nNo bconsole information provided" >> "$temp_file"
   fi
 
 }
