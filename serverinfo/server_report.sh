@@ -49,7 +49,7 @@ done
 services=("bacula-fd" "bacula-sd" "bacula-director" "ssh")
 
 # Email settings
-email_subject="$name - server Report - $(hostname)"
+email_subject="$name - server report - $(hostname)"
 
 # Temporary file to store the report
 temp_file="/tmp/server_report.txt"
@@ -76,7 +76,7 @@ get_info() {
     megacli=`/usr/sbin/megacli -CfgDsply -aALL -nolog |grep '^State'`
     echo "$megacli" >> "$temp_file"
   else
-    echo "No information provided"
+    echo "No information provided" >> "$temp_file"
   fi
 
   echo -e "\n====== System services" >> "$temp_file"
