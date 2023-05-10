@@ -62,12 +62,22 @@ get_info() {
 
   my_hostname=$(hostname)
   echo -e "Hostname: $my_hostname" >> "$temp_file"
+  dmi_info=$(sudo dmidecode -s system-manufacturer)
+  echo -e "DMI information: $dmi_info" >> "$temp_file"
 
   my_ip=$(ip addr show | grep 'inet ' | grep -v '127.0.0.1' | awk '{print $2}' | cut -d'/' -f1 | head -n 1)
   echo -e "IP Address: $my_ip" >> "$temp_file"
 
   echo -e "System Load: $(uptime)" >> "$temp_file"
   echo -e "Memory Usage: $(free -m)" >> "$temp_file"
+
+  echo -e "\n====== MegaCLI info" >> "$temp_file"
+  if [ -e "/usr/sbin/megacli" ]; then
+    megacli=`/usr/sbin/megacli -CfgDsply -aALL -nolog |grep '^State'`
+    echo "$megacli" >> "$temp_file"
+  else
+    echo "No information provided"
+  fi
 
   echo -e "\n====== System services" >> "$temp_file"
   for service in "${services[@]}"; do
