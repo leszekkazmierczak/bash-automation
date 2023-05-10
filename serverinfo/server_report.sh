@@ -99,10 +99,10 @@ get_info() {
 
 
   if [ -e "/usr/sbin/pvesm" ]; then
-    echo -e "\n====== pvesm statu: " >> "$temp_file"
+    echo -e "\n====== pvesm status: " >> "$temp_file"
     /usr/sbin/pvesm status >> "$temp_file"
   else
-    echo "\nNo pvesm status provided" >> "$temp_file"
+    echo -e "\nNo pvesm status provided" >> "$temp_file"
   fi
 
   if [ -e "/usr/sbin/bconsole" ]; then
