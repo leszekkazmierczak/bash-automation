@@ -62,7 +62,7 @@ get_info() {
 
   my_hostname=$(hostname)
   echo -e "Hostname: $my_hostname" >> "$temp_file"
-  dmi_info=$(sudo dmidecode -s system-manufacturer)
+  dmi_info=$(dmidecode -s system-manufacturer)
   echo -e "DMI information: $dmi_info" >> "$temp_file"
 
   my_ip=$(ip addr show | grep 'inet ' | grep -v '127.0.0.1' | awk '{print $2}' | cut -d'/' -f1 | head -n 1)
