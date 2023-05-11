@@ -46,7 +46,7 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 # List of services to check
-services=("bacula-fd" "bacula-sd" "bacula-director" "ssh")
+services=("bareos-fd" "bareos-sd" "bareos-dir" "ssh")
 
 # Email settings
 email_subject="$name - server report - $(hostname)"
