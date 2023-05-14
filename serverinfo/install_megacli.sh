@@ -1,6 +1,6 @@
 #!/bin/bash
 apt update
-apt install alien curl
+apt install alien curl libncurses5
 
 cd /tmp
 wget https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/8-07-14_MegaCLI.zip
